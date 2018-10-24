@@ -1,0 +1,11 @@
+name: 'ResNet CIFAR10'
+batch_size: 128
+n_epochs: 32
+
+model:
+    name: resnet18_cifar
+    input_shape: [32, 32, 3]
+    n_classes: 10
+
+data:
+    name: cifar10

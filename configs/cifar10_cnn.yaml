@@ -1,0 +1,11 @@
+name: 'CNN CIFAR10'
+batch_size: 32
+n_epochs: 1
+
+model:
+    name: cnn
+    input_shape: [32, 32, 3]
+    n_classes: 10
+
+data:
+    name: cifar10
