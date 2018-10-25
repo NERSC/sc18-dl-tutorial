@@ -1,11 +1,19 @@
-name: 'CNN CIFAR10'
-batch_size: 32
-n_epochs: 1
+description: 'CNN CIFAR10'
+
+data:
+    name: cifar10
 
 model:
     name: cnn
     input_shape: [32, 32, 3]
     n_classes: 10
 
-data:
-    name: cifar10
+optimizer:
+    name: Adam
+    lr: 0.001
+
+training:
+    batch_size: 64
+    n_epochs: 8
+    loss: categorical_crossentropy
+    metrics: [accuracy]
