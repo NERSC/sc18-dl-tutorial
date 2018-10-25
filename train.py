@@ -3,10 +3,12 @@ Main training script for the Deep Learning at Scale Keras examples.
 """
 
 # System
+import os
 import argparse
 import logging
 
 # Externals
+import keras
 import horovod.keras as hvd
 import yaml
 
@@ -59,8 +61,10 @@ def main():
     # Load configuration
     config = load_config(args.config)
     if rank == 0:
-        logging.info('Configuration: %s' % config)
+        logging.info('Job configuration: %s' % config)
     train_config = config['training']
+    output_dir = os.path.expandvars(config['output_dir'])
+    os.makedirs(output_dir, exist_ok=True)
 
     # Configure session
     configure_session()
@@ -87,6 +91,13 @@ def main():
             # Broadcast initial variable states from rank 0 to all processes.
             hvd.callbacks.BroadcastGlobalVariablesCallback(0),
         ]
+
+    # Checkpoint only from rank 0
+    if rank == 0:
+        checkpoint_dir = os.path.join(output_dir, 'checkpoints')
+        os.makedirs(checkpoint_dir, exist_ok=True)
+        callbacks.append(keras.callbacks.ModelCheckpoint(
+            os.path.join(checkpoint_dir, 'checkpoint-{epoch}.h5')))
 
     # Train the model
     history = model.fit_generator(train_gen,

@@ -1,4 +1,5 @@
 description: 'ResNet CIFAR10'
+output_dir: $SCRATCH/sc18-dl-tutorial/cifar10-resnet
 
 data:
     name: cifar10
