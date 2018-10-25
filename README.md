@@ -1,5 +1,7 @@
 # SC18 Tutorial: Deep Learning At Scale
 
+This repository contains the Keras code for the SC18 tutorial: *Deep Learning at Scale*.
+
 ## Inspiration
 
 Horovod ResNet + ImageNet example:
