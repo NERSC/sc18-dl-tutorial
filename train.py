@@ -7,12 +7,14 @@ import argparse
 import logging
 
 # Externals
+import horovod.keras as hvd
 import yaml
 
 # Locals
 from data import get_datasets
 from models import get_model
 from utils.device import configure_session
+from utils.optimizers import get_optimizer
 
 def parse_args():
     """Parse command line arguments."""
@@ -30,6 +32,18 @@ def config_logging(verbose=False):
     log_level = logging.DEBUG if verbose else logging.INFO
     logging.basicConfig(level=log_level, format=log_format)
 
+def init_workers(distributed=False):
+    rank, n_ranks = 0, 1
+    if distributed:
+        hvd.init()
+        rank, n_ranks = hvd.rank(), hvd.size()
+    return rank, n_ranks
+
+def load_config(config_file):
+    with open(config_file) as f:
+        config = yaml.load(f)
+    return config
+
 def main():
     """Main function"""
 
@@ -37,14 +51,16 @@ def main():
     args = parse_args()
     config_logging(args.verbose)
     logging.info('Initializing')
+    rank, n_ranks = init_workers(args.distributed)
     if args.show_config:
         logging.info('Command line config: %s' % args)
+    logging.info('Rank %i out of %i', rank, n_ranks)
 
     # Load configuration
-    with open(args.config) as f:
-        config = yaml.load(f)
-    #if not args.distributed or (dist.get_rank() == 0):
-    logging.info('Configuration: %s' % config)
+    config = load_config(args.config)
+    if rank == 0:
+        logging.info('Configuration: %s' % config)
+    train_config = config['training']
 
     # Configure session
     configure_session()
@@ -57,7 +73,22 @@ def main():
 
     # Build the model
     model = get_model(**config['model'])
-    model.summary()
+    # Configure optimizer
+    opt = get_optimizer(n_ranks=n_ranks, distributed=args.distributed,
+                        **config['optimizer'])
+    # Compile the model
+    model.compile(loss=train_config['loss'], optimizer=opt,
+                  metrics=train_config['metrics'])
+    if rank == 0:
+        model.summary()
+
+    # Prepare the training callbacks
+    callbacks = []
+    if args.distributed:
+        callbacks += [
+            # Broadcast initial variable states from rank 0 to all processes.
+            hvd.callbacks.BroadcastGlobalVariablesCallback(0),
+        ]
 
     # Train the model
     history = model.fit(x_train, y_train,
@@ -67,7 +98,7 @@ def main():
                         shuffle=True, verbose=2)
 
     # Drop to IPython interactive shell
-    if args.interactive:
+    if args.interactive and (rank == 0):
         logging.info('Starting IPython interactive session')
         import IPython
         IPython.embed()
