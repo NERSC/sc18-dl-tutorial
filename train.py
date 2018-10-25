@@ -87,10 +87,14 @@ def main():
     # Prepare the training callbacks
     callbacks = []
     if args.distributed:
-        callbacks += [
-            # Broadcast initial variable states from rank 0 to all processes.
-            hvd.callbacks.BroadcastGlobalVariablesCallback(0),
-        ]
+
+        # Broadcast initial variable states from rank 0 to all processes.
+        callbacks.append(hvd.callbacks.BroadcastGlobalVariablesCallback(0))
+
+        # Learning rate warmup
+        warmup_epochs = train_config.get('lr_warmup_epochs', 0)
+        callbacks.append(hvd.callbacks.LearningRateWarmupCallback(
+            warmup_epochs=warmup_epochs, verbose=1))
 
     # Checkpoint only from rank 0
     if rank == 0:
