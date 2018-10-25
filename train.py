@@ -66,10 +66,8 @@ def main():
     configure_session()
 
     # Load the data
-    # TODO: move to data generators
-    (x_train, y_train), (x_valid, y_valid) = get_datasets(**config['data'])
-    logging.info('Training shape: %s, %s', x_train.shape, y_train.shape)
-    logging.info('Validation shape: %s, %s', x_valid.shape, y_valid.shape)
+    train_gen, valid_gen = get_datasets(batch_size=train_config['batch_size'],
+                                        **config['data'])
 
     # Build the model
     model = get_model(**config['model'])
@@ -91,11 +89,13 @@ def main():
         ]
 
     # Train the model
-    history = model.fit(x_train, y_train,
-                        batch_size=config['batch_size'],
-                        epochs=config['n_epochs'],
-                        validation_data=(x_valid, y_valid),
-                        shuffle=True, verbose=2)
+    history = model.fit_generator(train_gen,
+                                  epochs=train_config['n_epochs'],
+                                  steps_per_epoch=len(train_gen),
+                                  validation_data=valid_gen,
+                                  validation_steps=len(valid_gen),
+                                  callbacks=callbacks,
+                                  verbose=2)
 
     # Drop to IPython interactive shell
     if args.interactive and (rank == 0):

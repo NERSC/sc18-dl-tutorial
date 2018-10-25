@@ -2,13 +2,30 @@
 Random dummy dataset specification.
 """
 
+# System
+import math
+
 # Externals
 import numpy as np
+from keras.utils import Sequence
 
-def get_datasets(n_train=1024, n_valid=1024,
+class DummyDataset(Sequence):
+
+    def __init__(self, n_samples, batch_size, input_shape, target_shape):
+        self.x = np.random.normal(size=(n_samples,) + tuple(input_shape))
+        self.y = np.random.normal(size=(n_samples,) + tuple(target_shape))
+        self.batch_size = batch_size
+
+    def __len__(self):
+        return math.ceil(len(self.x) / self.batch_size)
+
+    def __getitem__(self, idx):
+        start = idx * self.batch_size
+        end = (idx + 1) * self.batch_size
+        return self.x[start:end], self.y[start:end]
+
+def get_datasets(batch_size, n_train=1024, n_valid=1024,
                  input_shape=(3, 32, 32), target_shape=()):
-    x_train = np.random.normal(size=(n_train,) + tuple(input_shape))
-    x_valid = np.random.normal(size=(n_valid,) + tuple(input_shape))
-    y_train = np.random.normal(size=(n_train,) + tuple(target_shape))
-    y_valid = np.random.normal(size=(n_valid,) + tuple(target_shape))
-    return (x_train, y_train), (x_valid, y_valid)
+    train_data = DummyDataset(n_train, batch_size, input_shape, target_shape)
+    valid_data = DummyDataset(n_valid, batch_size, input_shape, target_shape)
+    return train_data, valid_data
