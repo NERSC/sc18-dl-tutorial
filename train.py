@@ -104,9 +104,10 @@ def main():
             os.path.join(checkpoint_dir, 'checkpoint-{epoch}.h5')))
 
     # Train the model
+    steps_per_epoch = len(train_gen) // n_ranks
     history = model.fit_generator(train_gen,
                                   epochs=train_config['n_epochs'],
-                                  steps_per_epoch=len(train_gen),
+                                  steps_per_epoch=steps_per_epoch,
                                   validation_data=valid_gen,
                                   validation_steps=len(valid_gen),
                                   callbacks=callbacks,
