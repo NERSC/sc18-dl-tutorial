@@ -4,6 +4,7 @@ Main training script for the Deep Learning at Scale Keras examples.
 
 # System
 import os
+import sys
 import argparse
 import logging
 
@@ -29,10 +30,15 @@ def parse_args():
     add_arg('--interactive', action='store_true')
     return parser.parse_args()
 
-def config_logging(verbose=False):
+def config_logging(verbose, output_dir):
     log_format = '%(asctime)s %(levelname)s %(message)s'
     log_level = logging.DEBUG if verbose else logging.INFO
-    logging.basicConfig(level=log_level, format=log_format)
+    stream_handler = logging.StreamHandler(stream=sys.stdout)
+    stream_handler.setLevel(log_level)
+    file_handler = logging.FileHandler(os.path.join(output_dir, 'out.log'), mode='w')
+    file_handler.setLevel(log_level)
+    logging.basicConfig(level=log_level, format=log_format,
+                        handlers=[stream_handler, file_handler])
 
 def init_workers(distributed=False):
     rank, n_ranks = 0, 1
@@ -51,20 +57,21 @@ def main():
 
     # Initialization
     args = parse_args()
-    config_logging(args.verbose)
-    logging.info('Initializing')
     rank, n_ranks = init_workers(args.distributed)
-    if args.show_config:
-        logging.info('Command line config: %s' % args)
-    logging.info('Rank %i out of %i', rank, n_ranks)
 
     # Load configuration
     config = load_config(args.config)
-    if rank == 0:
-        logging.info('Job configuration: %s' % config)
     train_config = config['training']
     output_dir = os.path.expandvars(config['output_dir'])
     os.makedirs(output_dir, exist_ok=True)
+
+    # Loggging
+    config_logging(verbose=args.verbose, output_dir=output_dir)
+    logging.info('Initialized rank %i out of %i', rank, n_ranks)
+    if args.show_config:
+        logging.info('Command line config: %s' % args)
+    if rank == 0:
+        logging.info('Job configuration: %s' % config)
 
     # Configure session
     configure_session()
@@ -119,7 +126,8 @@ def main():
         import IPython
         IPython.embed()
 
-    logging.info('All done!')
+    if rank == 0:
+        logging.info('All done!')
 
 if __name__ == '__main__':
     main()
