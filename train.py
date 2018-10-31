@@ -12,6 +12,7 @@ import logging
 import keras
 import horovod.keras as hvd
 import yaml
+import numpy as np
 
 # Locals
 from data import get_datasets
@@ -119,6 +120,13 @@ def main():
                                   validation_steps=len(valid_gen),
                                   callbacks=callbacks,
                                   verbose=2)
+
+    # Save training history
+    if rank == 0:
+        logging.info('Printing training history')
+        for k, v in history.history.items():
+            logging.info('  %s: %s', k, v)
+        np.savez(os.path.join(output_dir, 'history'), **history.history)
 
     # Drop to IPython interactive shell
     if args.interactive and (rank == 0):
