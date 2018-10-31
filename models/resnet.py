@@ -25,6 +25,14 @@ def build_resnet18_cifar(input_shape=(32, 32, 3), n_classes=10, dropout=None):
                          initial_pooling=None,
                          top='classification')
 
+def build_resnet50(input_shape=(224, 224, 3), n_classes=100, dropout=None):
+    """Build the resnet50 model with appropriate settings for ImageNet"""
+    return resnet.ResNet(input_shape=input_shape,
+                         classes=n_classes,
+                         block='bottleneck',
+                         repetitions=[3, 4, 6, 3],
+                         dropout=dropout)
+
 def _test():
     model = build_resnet18_cifar()
     model.summary()
