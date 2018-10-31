@@ -63,6 +63,8 @@ def main():
     config = load_config(args.config)
     train_config = config['training']
     output_dir = os.path.expandvars(config['output_dir'])
+    checkpoint_format = os.path.join(output_dir, 'checkpoints',
+                                     'checkpoint-{epoch}.h5')
     os.makedirs(output_dir, exist_ok=True)
 
     # Loggging
@@ -105,10 +107,8 @@ def main():
 
     # Checkpoint only from rank 0
     if rank == 0:
-        checkpoint_dir = os.path.join(output_dir, 'checkpoints')
-        os.makedirs(checkpoint_dir, exist_ok=True)
-        callbacks.append(keras.callbacks.ModelCheckpoint(
-            os.path.join(checkpoint_dir, 'checkpoint-{epoch}.h5')))
+        os.makedirs(os.path.dirname(checkpoint_format), exist_ok=True)
+        callbacks.append(keras.callbacks.ModelCheckpoint(checkpoint_format))
 
     # Train the model
     steps_per_epoch = len(train_gen) // n_ranks
