@@ -19,6 +19,7 @@ from data import get_datasets
 from models import get_model
 from utils.device import configure_session
 from utils.optimizers import get_optimizer
+from utils.callbacks import TimingCallback
 
 def parse_args():
     """Parse command line arguments."""
@@ -112,6 +113,10 @@ def main():
         os.makedirs(os.path.dirname(checkpoint_format), exist_ok=True)
         callbacks.append(keras.callbacks.ModelCheckpoint(checkpoint_format))
 
+    # Timing
+    timing_callback = TimingCallback()
+    callbacks.append(timing_callback)
+
     # Train the model
     steps_per_epoch = len(train_gen) // n_ranks
     history = model.fit_generator(train_gen,
@@ -131,6 +136,8 @@ def main():
         if 'val_top_k_categorical_accuracy' in history.history.keys():
             logging.info('Best top-5 validation accuracy: %.3f',
                          max(history.history['val_top_k_categorical_accuracy']))
+        logging.info('Average time per epoch: %.3f s',
+                     np.mean(timing_callback.times))
         np.savez(os.path.join(output_dir, 'history'),
                  n_ranks=n_ranks, **history.history)
 
