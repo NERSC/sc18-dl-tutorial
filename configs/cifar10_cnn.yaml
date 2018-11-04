@@ -1,5 +1,5 @@
 description: 'CNN CIFAR10'
-output_dir: $SCRATCH/sc18-dl-tutorial/cifar10-cnn
+output_dir: $SCRATCH/sc18-dl-tutorial/cifar10-cnn-N${SLURM_JOB_NUM_NODES}-${SLURM_JOB_ID}
 
 data:
     name: cifar10

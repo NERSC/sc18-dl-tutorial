@@ -1,5 +1,5 @@
 description: 'ResNet ImageNet'
-output_dir: $SCRATCH/sc18-dl-tutorial/imagenet-resnet
+output_dir: $SCRATCH/sc18-dl-tutorial/imagenet-cnn
 
 data:
     name: imagenet

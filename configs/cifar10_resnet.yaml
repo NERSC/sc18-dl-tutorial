@@ -1,5 +1,5 @@
 description: 'ResNet CIFAR10'
-output_dir: $SCRATCH/sc18-dl-tutorial/cifar10-resnet
+output_dir: $SCRATCH/sc18-dl-tutorial/cifar10-resnet-N${SLURM_JOB_NUM_NODES}-${SLURM_JOB_ID}
 
 data:
     name: cifar10
