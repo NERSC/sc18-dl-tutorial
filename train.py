@@ -72,9 +72,10 @@ def main():
     config_logging(verbose=args.verbose, output_dir=output_dir)
     logging.info('Initialized rank %i out of %i', rank, n_ranks)
     if args.show_config:
-        logging.info('Command line config: %s' % args)
+        logging.info('Command line config: %s', args)
     if rank == 0:
-        logging.info('Job configuration: %s' % config)
+        logging.info('Job configuration: %s', config)
+        logging.info('Saving job outputs to %s', output_dir)
 
     # Configure session
     configure_session()
@@ -123,9 +124,13 @@ def main():
 
     # Save training history
     if rank == 0:
-        logging.info('Printing training history')
-        for k, v in history.history.items():
-            logging.info('  %s: %s', k, v)
+        # Print some best-found metrics
+        if 'val_acc' in history.history.keys():
+            logging.info('Best validation accuracy: %.3f',
+                         max(history.history['val_acc']))
+        if 'val_top_k_categorical_accuracy' in history.history.keys():
+            logging.info('Best top-5 validation accuracy: %.3f',
+                         max(history.history['val_top_k_categorical_accuracy']))
         np.savez(os.path.join(output_dir, 'history'), **history.history)
 
     # Drop to IPython interactive shell
