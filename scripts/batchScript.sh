@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J cifar10
+#SBATCH -J cifar10-cnn
 #SBATCH -C haswell
 #SBATCH -N 1
 #SBATCH -q debug
@@ -10,4 +10,4 @@ config=configs/cifar10_cnn.yaml
 if [ $# -gt 0 ]; then config=$1; fi
 
 . scripts/setup.sh
-srun -u -l python train.py $config --distributed
+srun -l python train.py $config --distributed
