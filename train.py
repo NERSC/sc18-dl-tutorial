@@ -131,7 +131,8 @@ def main():
         if 'val_top_k_categorical_accuracy' in history.history.keys():
             logging.info('Best top-5 validation accuracy: %.3f',
                          max(history.history['val_top_k_categorical_accuracy']))
-        np.savez(os.path.join(output_dir, 'history'), **history.history)
+        np.savez(os.path.join(output_dir, 'history'),
+                 n_ranks=n_ranks, **history.history)
 
     # Drop to IPython interactive shell
     if args.interactive and (rank == 0):
