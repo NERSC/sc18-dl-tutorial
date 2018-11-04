@@ -20,4 +20,4 @@ training:
     batch_size: 32
     n_epochs: 1
     loss: binary_crossentropy
-    metrics: []
+    metrics: [accuracy]
