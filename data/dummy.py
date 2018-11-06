@@ -25,7 +25,7 @@ class DummyDataset(Sequence):
         return self.x[start:end], self.y[start:end]
 
 def get_datasets(batch_size, n_train=1024, n_valid=1024,
-                 input_shape=(3, 32, 32), target_shape=()):
+                 input_shape=(32, 32, 3), target_shape=()):
     train_data = DummyDataset(n_train, batch_size, input_shape, target_shape)
     valid_data = DummyDataset(n_valid, batch_size, input_shape, target_shape)
     return train_data, valid_data
