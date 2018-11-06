@@ -10,11 +10,11 @@ model:
     name: resnet50
     input_shape: [224, 224, 3]
     n_classes: 100
-    dropout: 0.2
 
 optimizer:
-    name: Adam
-    lr: 0.0001
+    name: SGD
+    lr: 0.0125
+    momentum: 0.9
 
 training:
     batch_size: 32
