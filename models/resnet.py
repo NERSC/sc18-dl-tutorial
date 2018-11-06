@@ -8,7 +8,7 @@ import keras
 from keras import backend, layers, models, regularizers
 
 def identity_block(input_tensor, kernel_size, filters, stage, block,
-		   l2_reg=5e-4, bn_mom=0.9):
+		   l2_reg=5e-5, bn_mom=0.9):
     """The identity block is the block that has no conv layer at shortcut.
 
     # Arguments
@@ -61,7 +61,7 @@ def identity_block(input_tensor, kernel_size, filters, stage, block,
     return x
 
 def conv_block(input_tensor, kernel_size, filters, stage, block,
-               strides=(2, 2), l2_reg=5e-4, bn_mom=0.9):
+               strides=(2, 2), l2_reg=5e-5, bn_mom=0.9):
     """A block that has a conv layer at shortcut.
 
     # Arguments
@@ -118,7 +118,7 @@ def conv_block(input_tensor, kernel_size, filters, stage, block,
     return x
 
 def ResNet50(input_shape=(224, 224, 3), n_classes=1000,
-             l2_reg=5e-4, bn_mom=0.9):
+             l2_reg=5e-5, bn_mom=0.9):
     """Instantiates the ResNet50 architecture.
 
     # Arguments
@@ -192,7 +192,7 @@ def ResNet50(input_shape=(224, 224, 3), n_classes=1000,
 
 
 def ResNetSmall(input_shape=(224, 224, 3), n_classes=1000,
-                l2_reg=5e-4, bn_mom=0.9):
+                l2_reg=5e-5, bn_mom=0.9):
     """Instantiates the small ResNet architecture.
 
     # Arguments
