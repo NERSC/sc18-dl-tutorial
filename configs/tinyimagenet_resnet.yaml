@@ -1,5 +1,5 @@
 description: 'ResNet ImageNet'
-output_dir: $SCRATCH/sc18-dl-tutorial/tinyimagenet-resnet
+output_dir: $SCRATCH/sc18-dl-tutorial/tinyimagenet-resnet-N${SLURM_JOB_NUM_NODES}-${SLURM_JOB_ID}
 
 data:
     name: tiny-imagenet
@@ -7,10 +7,9 @@ data:
     valid_dir: /global/cscratch1/sd/sfarrell/tiny-imagenet/valid
 
 model:
-    name: resnet18_cifar
+    name: resnet_small
     input_shape: [64, 64, 3]
     n_classes: 200
-    dropout: 0.5
 
 optimizer:
     name: Adam
