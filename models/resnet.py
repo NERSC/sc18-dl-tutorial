@@ -211,33 +211,32 @@ def ResNetSmall(input_shape=(224, 224, 3), n_classes=1000,
     else:
         bn_axis = 1
 
-    x = layers.ZeroPadding2D(padding=(3, 3), name='conv1_pad')(img_input)
-    x = layers.Conv2D(64, (3, 3), strides=(1, 1), padding='valid',
+    x = img_input
+    x = layers.Conv2D(64, (3, 3), strides=(1, 1), padding='same',
                       kernel_initializer='he_normal',
                       kernel_regularizer=regularizers.l2(l2_reg),
-                      name='conv1')(x)
+                      name='conv1')(img_input)
     x = layers.BatchNormalization(axis=bn_axis, name='bn_conv1')(x)
     x = layers.Activation('relu')(x)
-    x = layers.ZeroPadding2D(padding=(1, 1), name='pool1_pad')(x)
 
-    x = conv_block(x, 3, [64, 64, 256], stage=2, block='a', strides=(1, 1),
+    x = conv_block(x, 3, [64, 64, 64], stage=2, block='a',
                    l2_reg=l2_reg, bn_mom=bn_mom)
-    x = identity_block(x, 3, [64, 64, 256], stage=2, block='b',
+    x = identity_block(x, 3, [64, 64, 64], stage=2, block='b',
                        l2_reg=l2_reg, bn_mom=bn_mom)
 
-    x = conv_block(x, 3, [128, 128, 512], stage=3, block='a',
+    x = conv_block(x, 3, [128, 128, 128], stage=3, block='a',
                    l2_reg=l2_reg, bn_mom=bn_mom)
-    x = identity_block(x, 3, [128, 128, 512], stage=3, block='b',
+    x = identity_block(x, 3, [128, 128, 128], stage=3, block='b',
                        l2_reg=l2_reg, bn_mom=bn_mom)
 
-    x = conv_block(x, 3, [256, 256, 1024], stage=4, block='a',
+    x = conv_block(x, 3, [256, 256, 256], stage=4, block='a',
                    l2_reg=l2_reg, bn_mom=bn_mom)
-    x = identity_block(x, 3, [256, 256, 1024], stage=4, block='b',
+    x = identity_block(x, 3, [256, 256, 256], stage=4, block='b',
                        l2_reg=l2_reg, bn_mom=bn_mom)
 
-    x = conv_block(x, 3, [512, 512, 2048], stage=5, block='a',
+    x = conv_block(x, 3, [512, 512, 512], stage=5, block='a',
                    l2_reg=l2_reg, bn_mom=bn_mom)
-    x = identity_block(x, 3, [512, 512, 2048], stage=5, block='b',
+    x = identity_block(x, 3, [512, 512, 512], stage=5, block='b',
                        l2_reg=l2_reg, bn_mom=bn_mom)
 
     x = layers.GlobalAveragePooling2D(name='avg_pool')(x)
