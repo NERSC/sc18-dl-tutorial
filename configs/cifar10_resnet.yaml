@@ -5,10 +5,9 @@ data:
     name: cifar10
 
 model:
-    name: resnet18_cifar
+    name: resnet_small
     input_shape: [32, 32, 3]
     n_classes: 10
-    dropout: 0.2
 
 optimizer:
     name: Adam
