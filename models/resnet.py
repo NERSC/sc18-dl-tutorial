@@ -182,6 +182,7 @@ def ResNet50(input_shape=(224, 224, 3), n_classes=1000,
                        l2_reg=l2_reg, bn_mom=bn_mom)
     x = identity_block(x, 3, [512, 512, 2048], stage=5, block='c',
                        l2_reg=l2_reg, bn_mom=bn_mom)
+
     x = layers.GlobalAveragePooling2D(name='avg_pool')(x)
     x = layers.Dense(n_classes, activation='softmax',
                      kernel_regularizer=regularizers.l2(l2_reg),
@@ -238,6 +239,7 @@ def ResNetSmall(input_shape=(224, 224, 3), n_classes=1000,
                    l2_reg=l2_reg, bn_mom=bn_mom)
     x = identity_block(x, 3, [512, 512, 2048], stage=5, block='b',
                        l2_reg=l2_reg, bn_mom=bn_mom)
+
     x = layers.GlobalAveragePooling2D(name='avg_pool')(x)
     x = layers.Dense(n_classes, activation='softmax',
                      kernel_regularizer=regularizers.l2(l2_reg),
