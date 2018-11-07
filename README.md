@@ -22,11 +22,11 @@ This repository contains the Keras code for the SC18 tutorial: *Deep Learning at
 
 ## Inspiration
 
+Keras ResNet50 official model:
+https://github.com/keras-team/keras-applications/blob/master/keras_applications/resnet50.py
+
 Horovod ResNet + ImageNet example:
 https://github.com/uber/horovod/blob/master/examples/keras_imagenet_resnet50.py
-
-Flexible implementation of ResNet and variants:
-https://github.com/keras-team/keras-contrib/blob/master/keras_contrib/applications/resnet.py
 
 CIFAR10 CNN and ResNet examples:
 https://github.com/keras-team/keras/blob/master/examples/cifar10_cnn.py
