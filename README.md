@@ -2,21 +2,23 @@
 
 This repository contains the Keras code for the SC18 tutorial: *Deep Learning at Scale*.
 
-## Single-node CNN on CIFAR10
+## How to launch the examples.
 
-`sbatch -J cifar-cnn -N 1 scripts/batchScript.sh configs/cifar10_cnn.yaml`
+### Single-node CNN on CIFAR10
 
-## Single-node ResNet18 on CIFAR10
+`sbatch -N 1 scripts/cifar_cnn.sh`
 
-`sbatch -J cifar-resnet -N 1 scripts/batchScript.sh configs/cifar10_resnet.yaml`
+### Single-node mini ResNet on CIFAR10
 
-## Multi-node ResNet18 on CIFAR10
+`sbatch -N 1 scripts/cifar_resnet.sh`
 
-`sbatch -J cifar-resnet -N 8 scripts/batchScript.sh configs/cifar10_resnet.yaml`
+### Multi-node mini ResNet on CIFAR10
 
-## Single-node ResNet50 on ImageNet-100
+`sbatch -N 8 scripts/cifar_resnet.sh`
 
-`sbatch -J imagenet-resnet -N 1 scripts/batchScript.sh configs/imagenet_resnet.yaml`
+### Multi-node ResNet50 on ImageNet-100
+
+`sbatch -N 16 scripts/imagenet_resnet.sh`
 
 ## Inspiration
 
