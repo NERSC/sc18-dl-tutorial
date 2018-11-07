@@ -191,7 +191,7 @@ def ResNet50(input_shape=(224, 224, 3), n_classes=1000,
     return models.Model(img_input, x, name='resnet50')
 
 
-def ResNetSmall(input_shape=(224, 224, 3), n_classes=1000,
+def ResNetSmall(input_shape=(32, 32, 3), n_classes=10,
                 l2_reg=5e-5, bn_mom=0.9):
     """Instantiates the small ResNet architecture.
 
