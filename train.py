@@ -108,6 +108,11 @@ def main():
         callbacks.append(hvd.callbacks.LearningRateWarmupCallback(
             warmup_epochs=warmup_epochs, verbose=1))
 
+        # Learning rate schedule
+        for lr_schedule in train_config.get('lr_schedule', []):
+            logging.info('Adding LR schedule: %s', lr_schedule)
+            callbacks.append(hvd.callbacks.LearningRateScheduleCallback(**lr_schedule))
+
     # Checkpoint only from rank 0
     if rank == 0:
         os.makedirs(os.path.dirname(checkpoint_format), exist_ok=True)
