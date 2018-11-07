@@ -1,5 +1,5 @@
 description: 'ResNet ImageNet'
-output_dir: $SCRATCH/sc18-dl-tutorial/imagenet-resnet
+output_dir: $SCRATCH/sc18-dl-tutorial/imagenet-resnet-N${SLURM_JOB_NUM_NODES}-${SLURM_JOB_ID}
 
 data:
     name: imagenet

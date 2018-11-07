@@ -1,5 +1,5 @@
 description: 'ResNet ImageNet'
-output_dir: $SCRATCH/sc18-dl-tutorial/tinyimagenet-cnn
+output_dir: $SCRATCH/sc18-dl-tutorial/tinyimagenet-cnn-N${SLURM_JOB_NUM_NODES}-${SLURM_JOB_ID}
 
 data:
     name: tiny-imagenet

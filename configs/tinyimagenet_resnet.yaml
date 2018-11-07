@@ -1,4 +1,4 @@
-description: 'ResNet ImageNet'
+description: 'ResNet tiny-ImageNet'
 output_dir: $SCRATCH/sc18-dl-tutorial/tinyimagenet-resnet-N${SLURM_JOB_NUM_NODES}-${SLURM_JOB_ID}
 
 data:
