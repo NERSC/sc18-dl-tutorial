@@ -18,6 +18,20 @@ configuration files.
 **`data/`** - folder containing the specifications of the datasets. Each dataset
 has a corresponding name which is mapped to the specification in `data/__init__.py`
 
+**`models/`** - folder containing the Keras model definitions. Again, each model
+has a name which is interpreted in `models/__init__.py`.
+
+**`configs/`** - folder containing various configuration files. Each
+configuration specifies a dataset, a model, and all relevant configuration
+options (with some exceptions like the number of nodes, which is specified
+instead to SLURM via the command line).
+
+**`scripts/`** - contains an environment setup script and some SLURM scripts
+for easily submitting the example jobs to the Cori batch system.
+
+**`utils/`** - contains additional useful code for the training script, e.g.
+custom callbacks, device configuration, and optimizers logic.
+
 ## How to launch the examples.
 
 ### Single-node CNN on CIFAR10
