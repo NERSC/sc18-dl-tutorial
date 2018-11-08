@@ -2,6 +2,22 @@
 
 This repository contains the Keras code for the SC18 tutorial: *Deep Learning at Scale*.
 
+It contains specifications for a few datasets, a couple of CNN models, and
+all the training code to enable training the models in a distributed fashion
+using Horovod.
+
+As part of the tutorial, you will
+1. Train a simple CNN to classify images from the CIFAR10 dataset on a single node
+2. Train a ResNet model to classify the same images on multiple nodes
+
+## Structure of this repository
+
+*`train.py`* - the main training script which can be steered with YAML
+configuration files.
+
+*`data/`* - folder containing the specifications of the datasets. Each dataset
+has a corresponding name which is mapped to the specification in `data/__init__.py`
+
 ## How to launch the examples.
 
 ### Single-node CNN on CIFAR10
