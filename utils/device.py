@@ -9,8 +9,7 @@ import os
 import keras
 import tensorflow as tf
 
-# Default settings are for Haswell
-def configure_session(intra_threads=16, inter_threads=2,
+def configure_session(intra_threads=32, inter_threads=2,
                       blocktime=1, affinity='granularity=fine,compact,1,0'):
     """Sets the thread knobs in the TF backend"""
     os.environ['KMP_BLOCKTIME'] = str(blocktime)

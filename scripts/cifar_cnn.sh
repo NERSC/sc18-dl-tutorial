@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -J cifar-cnn
-#SBATCH -C haswell
+#SBATCH -C knl
 #SBATCH -N 1
 #SBATCH -q debug
 #SBATCH -t 30
