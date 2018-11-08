@@ -131,7 +131,7 @@ def main():
                                   validation_data=valid_gen,
                                   validation_steps=len(valid_gen),
                                   callbacks=callbacks,
-                                  verbose=2)
+                                  workers=4, verbose=2)
 
     # Save training history
     if rank == 0:
