@@ -12,10 +12,10 @@ As part of the tutorial, you will
 
 ## Structure of this repository
 
-*`train.py`* - the main training script which can be steered with YAML
+**`train.py`** - the main training script which can be steered with YAML
 configuration files.
 
-*`data/`* - folder containing the specifications of the datasets. Each dataset
+**`data/`** - folder containing the specifications of the datasets. Each dataset
 has a corresponding name which is mapped to the specification in `data/__init__.py`
 
 ## How to launch the examples.
