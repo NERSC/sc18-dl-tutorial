@@ -79,7 +79,8 @@ def main():
         logging.info('Saving job outputs to %s', output_dir)
 
     # Configure session
-    configure_session()
+    device_config = config.get('device', {})
+    configure_session(**device_config)
 
     # Load the data
     train_gen, valid_gen = get_datasets(batch_size=train_config['batch_size'],
