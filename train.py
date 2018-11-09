@@ -109,7 +109,7 @@ def main():
         callbacks.append(hvd.callbacks.LearningRateWarmupCallback(
             warmup_epochs=warmup_epochs, verbose=1))
 
-        # Learning rate schedule
+        # Learning rate decay schedule
         for lr_schedule in train_config.get('lr_schedule', []):
             logging.info('Adding LR schedule: %s', lr_schedule)
             callbacks.append(hvd.callbacks.LearningRateScheduleCallback(**lr_schedule))
