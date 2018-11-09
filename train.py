@@ -28,7 +28,8 @@ def parse_args():
     add_arg('config', nargs='?', default='configs/hello.yaml')
     add_arg('-d', '--distributed', action='store_true')
     add_arg('-v', '--verbose', action='store_true')
-    add_arg('--gpu', type=int)
+    add_arg('--gpu', type=int,
+            help='specify a gpu device ID if not running distributed')
     add_arg('--show-config', action='store_true')
     add_arg('--interactive', action='store_true')
     return parser.parse_args()
