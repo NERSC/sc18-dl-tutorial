@@ -82,7 +82,7 @@ from the CIFAR10 dataset.
 5. Now we are ready to submit our training job to the Cori batch system.
    We have provided SLURM scripts to make this as simple as possible.
    To run the simple CNN training on CIFAR10 on a single KNL node, simply do:\
-   `sbatch -N 1 scripts/cifar_cnn.sh`
+   `sbatch scripts/cifar_cnn.sh`
 
 6. Check on the status of your job by running `sqs`.
    Once the job starts running, you should see the output start to appear in the
@@ -120,7 +120,7 @@ amount of time.
       DistributedOptimizer.
 
 3. Inspect [train.py](train.py) once again.
-    * Identify the init_workers function where we initialize Horovod.
+    * Identify the init\_workers function where we initialize Horovod.
       Note where this is invoked in the main() function (right away).
     * Identify where we setup our training callbacks.
     * *Which callback ensures we have consistent model weights at the start of training?*
