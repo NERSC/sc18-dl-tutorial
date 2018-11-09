@@ -12,8 +12,5 @@ def get_model(name, **model_args):
     elif name == 'resnet50':
         from .resnet import ResNet50
         return ResNet50(**model_args)
-    elif name == 'resnet50_official':
-        from .resnet_official import build_resnet50
-        return build_resnet50(**model_args)
     else:
         raise ValueError('Model %s unknown' % name)
