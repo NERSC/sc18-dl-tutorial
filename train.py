@@ -28,6 +28,7 @@ def parse_args():
     add_arg('config', nargs='?', default='configs/hello.yaml')
     add_arg('-d', '--distributed', action='store_true')
     add_arg('-v', '--verbose', action='store_true')
+    add_arg('--gpu', type=int)
     add_arg('--show-config', action='store_true')
     add_arg('--interactive', action='store_true')
     return parser.parse_args()
@@ -79,8 +80,12 @@ def main():
         logging.info('Saving job outputs to %s', output_dir)
 
     # Configure session
+    if args.distributed:
+        gpu = hvd.local_rank()
+    else:
+        gpu = args.gpu
     device_config = config.get('device', {})
-    configure_session(**device_config)
+    configure_session(gpu=gpu, **device_config)
 
     # Load the data
     train_gen, valid_gen = get_datasets(batch_size=train_config['batch_size'],
