@@ -8,4 +8,4 @@
 
 . scripts/setup.sh
 config=configs/cifar10_cnn.yaml
-srun -l python train.py $config --distributed
+srun python train.py $config
