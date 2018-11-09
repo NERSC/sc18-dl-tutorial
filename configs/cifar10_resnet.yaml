@@ -16,10 +16,14 @@ optimizer:
 
 training:
     batch_size: 64
-    n_epochs: 32
+    n_epochs: 64
     lr_warmup_epochs: 5
     loss: categorical_crossentropy
     metrics: [accuracy]
+    lr_schedule:
+        - {start_epoch: 5, end_epoch: 32, multiplier: 1.}
+        - {start_epoch: 32, end_epoch: 48, multiplier: 1.e-1}
+        - {start_epoch: 48, multiplier: 1.e-2}
 
 device:
     intra_threads: 32
