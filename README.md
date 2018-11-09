@@ -120,7 +120,7 @@ amount of time.
       DistributedOptimizer.
 
 3. Inspect [train.py](train.py) once again.
-    * Identify the init\_workers function where we initialize Horovod.
+    * Identify the `init_workers` function where we initialize Horovod.
       Note where this is invoked in the main() function (right away).
     * Identify where we setup our training callbacks.
     * *Which callback ensures we have consistent model weights at the start of training?*
@@ -133,7 +133,7 @@ epoch. In this case we aren't worrying about that and are, for simplicity,
 relying on the independent random shuffling of the data by each worker as well
 as the random data augmentation.
 
-4. [**optional**] To gain an appreciation for the speedup of training on
+4. (**optional**) To gain an appreciation for the speedup of training on
    multiple nodes, you can first try to train the ResNet model on a single node.
    Adjust the configuration in [configs/cifar_resnet.yaml](configs/cifar_resnet.yaml)
    to train for just 1 epoch and then submit the job with\
