@@ -111,7 +111,8 @@ def main():
 
         # Learning rate decay schedule
         for lr_schedule in train_config.get('lr_schedule', []):
-            logging.info('Adding LR schedule: %s', lr_schedule)
+            if rank == 0:
+                logging.info('Adding LR schedule: %s', lr_schedule)
             callbacks.append(hvd.callbacks.LearningRateScheduleCallback(**lr_schedule))
 
     # Checkpoint only from rank 0
