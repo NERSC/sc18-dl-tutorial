@@ -42,7 +42,7 @@ for easily submitting the example jobs to the Cori batch system.
 **`utils/`** - contains additional useful code for the training script, e.g.
 custom callbacks, device configuration, and optimizers logic.
 
-## Hands-on walkthrough
+## Hands-on walk-through
 
 Go through the following steps as directed by the tutorial presenters.
 Discuss the questions with your neighbors.
@@ -54,7 +54,7 @@ from the CIFAR10 dataset.
 
 1. Take a look at the simple CNN model defined here: [models/cnn.py](models/cnn.py).
    Consider the following things:
-    * Note how the model is constucted as a sequence of layers
+    * Note how the model is constructed as a sequence of layers
     * Note the structure of alternating convolutions, pooling, and dropout
     * Identify the _classifier head_ of the model; the part which computes the
       class probabilities.
@@ -135,7 +135,7 @@ as the random data augmentation.
 
 4. (**optional**) To gain an appreciation for the speedup of training on
    multiple nodes, you can first try to train the ResNet model on a single node.
-   Adjust the configuration in [configs/cifar_resnet.yaml](configs/cifar_resnet.yaml)
+   Adjust the configuration in [configs/cifar10_resnet.yaml](configs/cifar10_resnet.yaml)
    to train for just 1 epoch and then submit the job with\
    `sbatch -N 1 scripts/cifar_resnet.sh`
 
