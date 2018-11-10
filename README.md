@@ -83,6 +83,9 @@ from the CIFAR10 dataset.
    We have provided SLURM scripts to make this as simple as possible.
    To run the simple CNN training on CIFAR10 on a single KNL node, simply do:\
    `sbatch scripts/cifar_cnn.sh`
+    * **Important:** the first time you run a CIFAR10 example, it will
+    autmoatically download the dataset. If you have more than one job attempting
+    this download simultaneously it will likely fail.
 
 6. Check on the status of your job by running `sqs`.
    Once the job starts running, you should see the output start to appear in the
