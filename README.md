@@ -157,6 +157,7 @@ things like
 * Change the optimizer (search for Keras optimizers on google).
 * Change the nominal learning rate, number of warmup epochs, decay schedule
 * Change the learning rate scaling (e.g. try "sqrt" scaling instead of linear)
+
 Most of these things can be changed entirely within the configuration.
 See [configs/imagenet_resnet.yaml](configs/imagenet_resnet.yaml) for examples.
 
