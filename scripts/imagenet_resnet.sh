@@ -2,7 +2,8 @@
 #SBATCH -J imagenet-resnet
 #SBATCH -C knl
 #SBATCH -N 1
-#SBATCH -q debug
+#SBATCH --reservation=sc18
+#SBATCH -q regular
 #SBATCH -t 30
 #SBATCH -o logs/%x-%j.out
 

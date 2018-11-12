@@ -2,8 +2,9 @@
 #SBATCH -J cifar-cnn
 #SBATCH -C knl
 #SBATCH -N 1
-#SBATCH -q debug
-#SBATCH -t 30
+#SBATCH --reservation=sc18
+#SBATCH -q regular
+#SBATCH -t 45
 #SBATCH -o logs/%x-%j.out
 
 . scripts/setup.sh
