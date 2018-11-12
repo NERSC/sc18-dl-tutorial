@@ -1,8 +1,10 @@
 # SC18 Tutorial: Deep Learning At Scale
 
-This repository contains the Keras code for the SC18 tutorial:
+This repository contains the material for the SC18 tutorial:
 *Deep Learning at Scale*.
 
+Here you will links to slides and resources as well as all the code
+for the hands-on sessions.
 It contains specifications for a few datasets, a couple of CNN models, and
 all the training code to enable training the models in a distributed fashion
 using Horovod.
@@ -10,6 +12,21 @@ using Horovod.
 As part of the tutorial, you will
 1. Train a simple CNN to classify images from the CIFAR10 dataset on a single node
 2. Train a ResNet model to classify the same images on multiple nodes
+
+**Contents**
+* [Links](https://github.com/NERSC/sc18-dl-tutorial#links)
+* [Installation](https://github.com/NERSC/sc18-dl-tutorial#installation)
+* [Navigating the repository](https://github.com/NERSC/sc18-dl-tutorial#navigating-the-repository)
+* [Hands-on walk-through](https://github.com/NERSC/sc18-dl-tutorial#hands-on-walk-through)
+    * [Single node training example](https://github.com/NERSC/sc18-dl-tutorial#single-node-training-example)
+    * [Multi-node training example](https://github.com/NERSC/sc18-dl-tutorial#multi-node-training-example)
+    * [Advanced example: multi-node ResNet50 on ImageNet-100](https://github.com/NERSC/sc18-dl-tutorial#advanced-example-multi-node-resnet50-on-imagenet-100)
+* [Code references](https://github.com/NERSC/sc18-dl-tutorial#code-references)
+
+## Links
+
+Presentation slides: https://drive.google.com/drive/folders/1CbAbLaOcDVtZ9cX4sSlM_5HvADf5Miqd?usp=sharing
+Join the Slack workspace: https://join.slack.com/t/sc18-tut177/shared_invite/enQtNDY3OTUyNzcwNjI4LWYyNTlkMTI0ZGM5YzI4MDFkNWJiZjBlMjAxMzdiMzI1NTZhYmE5NmNhMzcyYzFhYzQ0ZjczNmJkMzRkZWIyNGY
 
 ## Installation
 
@@ -20,7 +37,7 @@ As part of the tutorial, you will
 That's it! The rest of the software (Keras, TensorFlow) is pre-installed on Cori
 and loaded via the scripts used below.
 
-## Structure of this repository
+## Navigating the repository
 
 **`train.py`** - the main training script which can be steered with YAML
 configuration files.
@@ -64,7 +81,7 @@ from the CIFAR10 dataset.
 2. Now take a look at the dataset code for CIFAR10: [data/cifar10.py](data/cifar10.py)
     * Keras has a convenient API for CIFAR10 which will automatically download
       the dataset for you.
-    * Ask yourself: *why do we scale the dataset by 255?*
+    * Ask yourself: *why do we scale the dataset by 1/255?*
     * Note where we convert the labels (integers) to categorical class vectors.
       Ask yourself: *why do we have to do this?*
     * *What kinds of data augmentation are we applying?*
