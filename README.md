@@ -26,6 +26,7 @@ As part of the tutorial, you will
 ## Links
 
 Presentation slides: https://drive.google.com/drive/folders/1m_BEBlkbgBHiNg1bzzo74uRh6lJFBjLL?usp=sharing
+
 Join the Slack workspace: https://join.slack.com/t/sc18-tut177/shared_invite/enQtNDY3OTUyNzcwNjI4LWYyNTlkMTI0ZGM5YzI4MDFkNWJiZjBlMjAxMzdiMzI1NTZhYmE5NmNhMzcyYzFhYzQ0ZjczNmJkMzRkZWIyNGY
 
 ## Installation
