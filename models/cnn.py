@@ -13,13 +13,10 @@ def build_model(input_shape=(32, 32, 3), n_classes=10, dropout=0):
     model = Sequential([
         Conv2D(16, input_shape=input_shape, **conv_args),
         MaxPooling2D(pool_size=2),
-        Dropout(dropout),
         Conv2D(32, **conv_args),
         MaxPooling2D(pool_size=2),
-        Dropout(dropout),
         Conv2D(64, **conv_args),
         MaxPooling2D(pool_size=2),
-        Dropout(dropout),
         Flatten(),
         Dense(128, activation='relu'),
         Dropout(dropout),
